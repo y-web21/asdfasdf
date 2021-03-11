@@ -99,3 +99,7 @@ Route::get('/faker', function () {
     echo('</pre>');
     exit();
 });
+
+Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
+    return view('dashboard');
+})->name('dashboard');
