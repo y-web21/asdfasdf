@@ -30,4 +30,52 @@ class UserFactory extends Factory
             'remember_token' => Str::random(10),
         ];
     }
+
+    /**
+     * 脆弱なパスワードに変更
+     *
+     * @return UserFactory
+     */
+    public function vulnerablePass(): UserFactory
+    {
+        return $this->state([
+            'password' => 'pass',
+        ]);
+    }
+
+    /**
+     * テスト用email
+     *
+     * @return UserFactory
+     */
+    public function testEmail(): UserFactory
+    {
+        $path = dirname(__FILE__) . '/../../config/const/email.txt';
+        if (file_exists($path)){
+
+            $mail = explode("\n", file_get_contents($path))[0];
+
+            if(!USER::where('email', '=', $mail)->exists()){
+                return $this->state([
+                    'email' => $mail,
+                ]);
+            }
+        }
+        return $this;
+    }
+
+    /**
+     * テスト用email
+     *
+     * @return UserFactory
+     */
+    public function testUser(): UserFactory
+    {
+        return $this->state ([
+            'name' => 'test',
+            'email' => 'test@test.com',
+            'email_verified_at' => now(),
+            'password' => 'test',
+        ]);
+    }
 }
