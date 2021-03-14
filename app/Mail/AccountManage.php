@@ -11,14 +11,16 @@ class AccountManage extends Mailable
 {
     use Queueable, SerializesModels;
 
+    private $verify_url;
+
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($verify_url)
     {
-        //
+        $this->verify_url = $verify_url;
     }
 
     /**
@@ -28,6 +30,11 @@ class AccountManage extends Mailable
      */
     public function build()
     {
-        return $this->view('view.name');
+        return $this->from(config('mail.from.address'))
+            ->subject('登録の確認をお願いします')
+            ->view('emails.email_verify')
+            ->with([
+                'url' => $this->verify_url,
+            ]);
     }
 }
