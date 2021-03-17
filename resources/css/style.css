@@ -23,6 +23,9 @@
 .mw-300px{
     max-width: 300px;
 }
+.minw-100px{
+    min-width: 100px;
+}
 .h-100per{
     height: 100%;
 }
@@ -31,6 +34,9 @@
 }
 .w-100per{
     width: 100%;
+}
+.w-100px{
+    width: 100px;
 }
 .w-150px{
     width: 150px;
@@ -51,7 +57,7 @@
     height: 75px;
 }
 
-/* 画面が小さい場合もフッターを1番下へ */
+/* 画面領域が狭い場合もフッターを画面下端へ */
 .h-3rem {
     height: 3rem;
 }
@@ -61,4 +67,9 @@
 html,
 body {
   height: 100%;
+}
+
+/* nav */
+.dropdown:hover>.dropdown-content {
+    display: block;
 }
