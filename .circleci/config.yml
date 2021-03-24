@@ -8,7 +8,15 @@ jobs:
     docker:
       # Specify the version you desire here
       - image: circleci/php:7.4.16-fpm-buster
-      - image: circleci/mysql:5.7.33
+        environment:
+          - APP_DEBUG: true
+          # .env.testingを使用
+          - APP_ENV: testing
+          # - APP_KEY: base64:hvoPr0CX0tbk04SuMyZ1cRZNpwQUzCAtD9fcev1tiyA= #不要かも
+          # config/database.php $connections['circle_testing']を使用
+          - DB_CONNECTION: circle_testing
+          # - DB_DATABASE: test_sample01
+          # - DB_USERNAME: root
 
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
@@ -19,15 +27,11 @@ jobs:
       #
       # - image: redis:2.8.19
 
-    environment:
-      - APP_DEBUG: true
-      # .env.testingを使用
-      - APP_ENV: testing
-      - APP_KEY: base64:hvoPr0CX0tbk04SuMyZ1cRZNpwQUzCAtD9fcev1tiyA= #不要かも
-      # config/database.php $connections['circle_testing']を使用
-      - DB_CONNECTION: circle_test
-      - MYSQL_ALLOW_EMPTY_PASSWORD: true
-      - TEST_MSG: UCHU
+      - image: circleci/mysql:5.7.33
+        environment:
+          - MYSQL_ALLOW_EMPTY_PASSWORD: true
+          - MYSQL_DATABASE: circle_test
+          - TEST_MSG: UCHU
 
     # 複数のプロジェクトで利用することを考慮して明示する
     working_directory: ~/-y-web21-circle-ci-first
