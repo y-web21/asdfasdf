@@ -7,6 +7,7 @@ use App\Models\Article;
 use App\Models\UploadImage;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Tests\TestCase;
 
 class PosterPagesControllerTest extends TestCase
@@ -133,6 +134,7 @@ class PosterPagesControllerTest extends TestCase
 
     public function test_destroy()
     {
+        $this->withoutMiddleware();
         $record = Article::factory()->create();
         $response = $this->delete(route('post.destroy', ['post' => $record->id]));
         echo($this->poster_home);
@@ -141,5 +143,6 @@ class PosterPagesControllerTest extends TestCase
         var_dump($response->dump());
         //         ->from('posts') //追加
         // ->post('post/create', [
+
     }
 }
