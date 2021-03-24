@@ -27,7 +27,7 @@ jobs:
       # config/database.php $connections['circle_testing']を使用
       - DB_CONNECTION: circle_test
       - MYSQL_ALLOW_EMPTY_PASSWORD: true
-      - TEST_MGS: UCHU
+      - TEST_MSG: UCHU
 
     # 複数のプロジェクトで利用することを考慮して明示する
     working_directory: ~/-y-web21-circle-ci-first
@@ -39,9 +39,9 @@ jobs:
       - run:
           name: hiroshi
           command: |
-            echo $TEST_MSG
-            echo $APP_ENV
-            echo $DB_HOST
+            echo TEST_MSG=$TEST_MSG
+            echo APP_ENV=$APP_ENV
+            echo DB_HOST=$DB_HOST
 
       - run: sudo apt update # PHP CircleCI 2.0 Configuration File# PHP CircleCI 2.0 Configuration File sudo apt install zlib1g-dev libsqlite3-dev
       - run: sudo docker-php-ext-install zip
