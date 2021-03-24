@@ -17,5 +17,4 @@ return [
     'next' => '次へ &raquo;',
     'first' => '最初へ',
     'last' => '最後へ',
-
 ];

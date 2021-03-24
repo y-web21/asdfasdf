@@ -6,7 +6,7 @@ if (isset($image) && $image->count() !== 0) {
 }
 
 $form_value = [];
-$form_value['status_id'] = config('const.common.ARTICLE.DEFAULT_STATUS');
+$form_value['status_id'] = config('const.ARTICLE.DEFAULT_STATUS');
 
 if (isset($article)) {
     $form_value += ['title' => $article->title];
@@ -36,23 +36,23 @@ Session::has('editing_status') && ($form_value = Helper::arrayAppendOrOverwrite(
         <div class="flex flex-col space-y-4 md:space-y-0 md:flex-row md:space-x-4">
 
             <div class="w-full">
-                <label class="text-xl ">タイトル</label>
+                <label class="text-xl">タイトル</label>
                 <input id="new_title" type="text" name="title"
                     value="{{ isset($form_value['title']) ? $form_value['title'] : old('title') }}"
                     placeholder="タイトルを入力してください" class="w-full form-active-blue text-opacity-10">
             </div>
 
             <div class="w-full">
-                <label class="text-xl ">投稿者</label>
-                <input type="author" value="{{ 'getPosterName' }}" class="w-full form-active-blue text-opacity-10"
+                <label class="text-xl">投稿者</label>
+                <input type="text" name="author" value="{{ Auth::user()->name }}" class="w-full form-active-blue text-opacity-10 bg-gray-200"
                     disabled>
             </div>
         </div>
 
         <div class="w-full">
             <label class="text-xl bg-">投稿内容</label>
-            <textarea id="new_content" name="content" cols="30" rows="10" placeholder="内容を入力してください"
-                class="w-full form-active-blue text-opacity-10">{{ isset($form_value['content']) ? $form_value['content'] : old('content') }}</textarea>
+            <textarea id="new_content" name="content" placeholder="内容を入力してください"
+                class="w-full form-active-blue text-opacity-10 minh-300px">{{ isset($form_value['content']) ? $form_value['content'] : old('content') }}</textarea>
         </div>
 
         <div class="w-full">
@@ -72,8 +72,8 @@ Session::has('editing_status') && ($form_value = Helper::arrayAppendOrOverwrite(
                             formaction="{{ route('post.update', ['post' => $article->id]) }}"
                             class="btn-green">更新</button>
                     @else
-                        <button id="btn_submit_new_post" type="submit" formmethod="get"
-                            formaction="{{ route('post.create') }}" class="btn-blue">投稿</button>
+                        <button id="btn_submit_new_post" type="submit" formmethod="post"
+                            formaction="{{ route('post.store') }}" class="btn-blue">投稿</button>
                     @endif
                 </div>
 
@@ -87,9 +87,9 @@ Session::has('editing_status') && ($form_value = Helper::arrayAppendOrOverwrite(
 
             <div class="w-full">
                 @if (isset($image) && $image->count() !== 0)
-                    <label class="text-xl bg-">投稿画像</label>
+                    <label class="text-xl">投稿画像</label>
                     <img src="{{ asset('/storage/images/' . $image->name) }}" alt="{{ $image->description }}"
-                        class="w-full mw-300px mx-auto">
+                        class="w-full maxw-300px mx-auto">
                 @endif
 
             </div>

@@ -13,13 +13,13 @@
 
 @php
 if (!isset($disp_header)) {
-    $disp_header = config('const.common.BLADE.HEADER.SMALL');
+    $disp_header = config('const.BLADE.HEADER.SMALL');
 }
 if (!isset($disp_gnav)) {
-    $disp_gnav = config('const.common.BLADE.GNAV.ENABLE');
+    $disp_gnav = config('const.BLADE.GNAV.PUBLIC');
 }
 if (!isset($disp_footer)) {
-    $disp_footer = config('const.common.BLADE.FOOTER.ENABLE');
+    $disp_footer = config('const.BLADE.FOOTER.ENABLE');
 }
 
 // ssl 未実装
@@ -41,7 +41,7 @@ if (!isset($disp_footer)) {
             @include('layouts.gnav', [ $disp_gnav ])
         @show
 
-        <div class="md:container md:mx-auto container">
+        <div class="container mx-auto">
 
             <main>
                 <div class="container">

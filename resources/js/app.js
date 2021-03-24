@@ -1,3 +1,6 @@
+require('./bootstrap');
+
+require('alpinejs');
 function insertFormMethod(event) {
     event.currentTarget.insertAdjacentHTML('beforebegin', this.method)
 }

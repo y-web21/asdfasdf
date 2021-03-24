@@ -1,10 +1,12 @@
 @extends('layouts.master')
 @php
-$disp_gnav = config('const.common.BLADE.GNAV.DISABLE');
+$disp_header = config('const.BLADE.HEADER.NONE');
+$disp_gnav = config('const.BLADE.GNAV.NONE');
 @endphp
 
 @section('content')
-    @include('poster.parts.layouts')
-    @include('poster.parts.form_article', [$mode = 'edit'])
-    @include('poster.parts.layouts_close')
+    @include('navigation-menu')
+    <div class="w-full relative mt-0 shadow-2xl rounded my-12 bg-white overflow-hidden">
+        @include('poster.parts.form_article', [$mode = 'edit'])
+    </div>
 @endsection
