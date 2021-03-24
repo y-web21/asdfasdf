@@ -8,6 +8,7 @@ jobs:
     docker:
       # Specify the version you desire here
       - image: circleci/php:7.4.16-fpm-buster
+      - image: circleci/mysql:5.7.33
 
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
@@ -18,21 +19,20 @@ jobs:
       #
       # - image: redis:2.8.19
 
-      - image: circleci/mysql:5.7.33
-        environment:
-          - APP_DEBUG: true
-          # .env.testingを使用
-          - APP_ENV: testing
-          - APP_KEY: base64:hvoPr0CX0tbk04SuMyZ1cRZNpwQUzCAtD9fcev1tiyA= #不要かも
-          # config/database.php $connections['circle_testing']を使用
-          - DB_CONNECTION: circle_test
-          - MYSQL_ALLOW_EMPTY_PASSWORD: true
+    environment:
+      - APP_DEBUG: true
+      # .env.testingを使用
+      - APP_ENV: testing
+      - APP_KEY: base64:hvoPr0CX0tbk04SuMyZ1cRZNpwQUzCAtD9fcev1tiyA= #不要かも
+      # config/database.php $connections['circle_testing']を使用
+      - DB_CONNECTION: circle_test
+      - MYSQL_ALLOW_EMPTY_PASSWORD: true
 
     # 複数のプロジェクトで利用することを考慮して明示する
     working_directory: ~/-y-web21-circle-ci-first
 
     steps:
-      # git cloneっぽいなにか
+      # ソース コードを作業ディレクトリにチェックアウトします
       - checkout
 
       - run: sudo apt update # PHP CircleCI 2.0 Configuration File# PHP CircleCI 2.0 Configuration File sudo apt install zlib1g-dev libsqlite3-dev
