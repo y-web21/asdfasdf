@@ -22,8 +22,6 @@ jobs:
     steps:
       - checkout
 
-      - run: cat /etc/os-release
-
       - run: sudo apt update # PHP CircleCI 2.0 Configuration File# PHP CircleCI 2.0 Configuration File sudo apt install zlib1g-dev libsqlite3-dev
       - run: sudo docker-php-ext-install zip
       # Install PHP Extension
@@ -51,7 +49,9 @@ jobs:
       #       - ./node_modules
 
       # yarn
-      - run: curl -o- -L https://yarnpkg.com/install.sh | bash
+      - run: |
+        curl -sSL "https://nodejs.org/dist/v11.10.0/node-v11.10.0-linux-x64.tar.xz" | sudo tar --strip-components=2 -xJ -C /usr/local/bin/ node-v11.10.0-linux-x64/bin/node
+        curl -o- -L https://yarnpkg.com/install.sh | bash
       - restore_cache:
           keys:
             - node-v1-{{ checksum "package.json" }}
