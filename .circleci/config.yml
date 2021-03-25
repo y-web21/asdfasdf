@@ -50,8 +50,8 @@ jobs:
       #     paths:
       #       - ./node_modules
 
-      yarn
-      # - run: curl -o- -L https://yarnpkg.com/install.sh | bash
+      # yarn
+      - run: curl -o- -L https://yarnpkg.com/install.sh | bash
       - restore_cache:
           keys:
             - node-v1-{{ checksum "package.json" }}
