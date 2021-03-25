@@ -50,7 +50,7 @@ jobs:
 
 
 
-      yarn
+      # yarn
       - run:
           name: yarn
           command: |
