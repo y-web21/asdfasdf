@@ -6,71 +6,59 @@ version: 2
 jobs:
   build:
     docker:
-      # Specify the version you desire here
       - image: circleci/php:7.4.16-fpm-buster
         environment:
           - APP_DEBUG: true
           - APP_ENV: testing
           - DB_CONNECTION: mysql_circle_testing
 
-      # Specify service dependencies here if necessary
-      # CircleCI maintains a library of pre-built images
-      # documented at https://circleci.com/docs/2.0/circleci-images/
-      # Using the RAM variation mitigates I/O contention
-      # for database intensive operations.
-      - image: circleci/mysql:5.7-ram
-      #
-      # - image: redis:2.8.19
-
-      # - image: circleci/mysql:5.7.33
+      - image: circleci/mysql:5.7.33
         environment:
           - MYSQL_ALLOW_EMPTY_PASSWORD: true
           - MYSQL_DATABASE: circle_test
 
-
-    # 複数のプロジェクトで利用することを考慮して明示する
     working_directory: ~/application
 
     steps:
       - checkout
 
       - run: sudo apt update # PHP CircleCI 2.0 Configuration File# PHP CircleCI 2.0 Configuration File sudo apt install zlib1g-dev libsqlite3-dev
-      # - run: sudo docker-php-ext-install zip
+      - run: sudo docker-php-ext-install zip
       # Install PHP Extension
       - run: sudo docker-php-ext-install pdo_mysql
 
       # npm
-      - run:
-          name: "Node.js と npm の更新"
-          command: |
-            curl -sSL "https://nodejs.org/dist/v11.10.0/node-v11.10.0-linux-x64.tar.xz" | sudo tar --strip-components=2 -xJ -C /usr/local/bin/ node-v11.10.0-linux-x64/bin/node
-            curl https://www.npmjs.com/install.sh | sudo bash
-      - run:
-          name: "node -v npm -v"
-          command: |
-            node -v
-            npm -v
-      - restore_cache:
-          keys:
-            - v1-node-{{ checksum "package.json" }}
-            - v1-node-
-      - run: npm install
-      - save_cache:
-          key: v1-node-{{ checksum "package.json" }}
-          paths:
-            - ./node_modules
-
-      # yarn
-      # - run: curl -o- -L https://yarnpkg.com/install.sh | bash
+      # - run:
+      #     name: "Node.js と npm の更新"
+      #     command: |
+      #       curl -sSL "https://nodejs.org/dist/v11.10.0/node-v11.10.0-linux-x64.tar.xz" | sudo tar --strip-components=2 -xJ -C /usr/local/bin/ node-v11.10.0-linux-x64/bin/node
+      #       curl https://www.npmjs.com/install.sh | sudo bash
+      # - run:
+      #     name: "node -v npm -v"
+      #     command: |
+      #       node -v
+      #       npm -v
       # - restore_cache:
       #     keys:
-      #       - node-v1-{{ checksum "package.json" }}
-      #       - node-v1-
-      # - run: yarn install
+      #       - v1-node-{{ checksum "package.json" }}
+      #       - v1-node-
+      # - run: npm install
       # - save_cache:
-      #     key: node-v1-{{ checksum "package.json" }}
+      #     key: v1-node-{{ checksum "package.json" }}
       #     paths:
-      #       - node_modules
+      #       - ./node_modules
+
+      yarn
+      - run: curl -o- -L https://yarnpkg.com/install.sh | bash
+      - restore_cache:
+          keys:
+            - node-v1-{{ checksum "package.json" }}
+            - node-v1-
+      - run: yarn install
+      - save_cache:
+          key: node-v1-{{ checksum "package.json" }}
+          paths:
+            - node_modules
 
       # composer Download and cache dependencies
       - restore_cache:
