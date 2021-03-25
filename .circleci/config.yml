@@ -73,16 +73,10 @@ jobs:
           paths:
             - ./vendor
 
-      # prepare the database
-      # - run: touch storage/testing.sqlite
-      # - run: php artisan migrate --env=testing --database=sqlite_testing --force
-
       - run:
           name: "artisan db"
           command: |
-            php artisan migrate --env testing
-          # php artisan migrate --env circle_testing --database=mysql_circle_testing
-      # php artisan db:seed
+            php artisan migrate
 
       - run:
           name: "Run PHPUnit"
