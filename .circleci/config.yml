@@ -84,7 +84,6 @@ jobs:
           command: |
             php artisan migrate
 
-      - run: rm -rf ./tests/imo/
       - run:
           name: "Run PHPUnit"
           command: |
@@ -99,3 +98,7 @@ jobs:
           name: "view test logg"
           command: cat tests/imo/ttt.txt
           when: always
+
+      - run: ls -al ./storage/
+      - run: ls -al ./storage/logs/
+      - run: cat ./storage/logs/laravel.log
